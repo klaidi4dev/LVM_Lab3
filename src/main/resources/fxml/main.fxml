@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.ua._klaidi4_.lmv_lab3.controllers.MainController">
+   <children>
+      <Label fx:id="lableBook" alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="1000.0" text="Книжковий каталог">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imageLableBook" fitHeight="40.0" fitWidth="40.0" layoutX="300.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="addBook" layoutX="50.0" layoutY="100.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Додати нову книгу" />
+      <Button fx:id="searchBook" layoutX="550.0" layoutY="100.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Пошук книг" />
+      <Button fx:id="armorBook" layoutX="50.0" layoutY="220.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Бронювання книг" />
+      <Button fx:id="writingBook" layoutX="550.0" layoutY="220.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Списання старих книг" />
+      <Button fx:id="registerBook" layoutX="50.0" layoutY="340.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="900.0" text="Реєстрація користувачів" />
+   </children>
+</AnchorPane>
