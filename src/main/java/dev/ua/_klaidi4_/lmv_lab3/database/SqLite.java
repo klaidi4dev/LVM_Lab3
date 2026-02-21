@@ -1,6 +1,7 @@
 package dev.ua._klaidi4_.lmv_lab3.database;
 
 import dev.ua._klaidi4_.lmv_lab3.modules.Book;
+import dev.ua._klaidi4_.lmv_lab3.modules.Reservations;
 import dev.ua._klaidi4_.lmv_lab3.modules.User;
 
 import java.sql.*;
@@ -66,6 +67,69 @@ public class SqLite {
             System.out.println(e.getMessage());
         }
     }
+    public static void addReservations(Reservations reservations) {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO reservations (user_id, book_id) VALUES (?, ?)");
+            pstmt.setInt(1, reservations.getUser_id().getId());
+            pstmt.setInt(2, reservations.getBook_id().getId());
+            pstmt.executeUpdate();
+
+            PreparedStatement pstmtUpdate = connection.prepareStatement("UPDATE books SET isAvailable = ? WHERE id = ?");
+            pstmtUpdate.setBoolean(1, reservations.getBook_id().setIsAvailable(false));
+            pstmtUpdate.setInt(2, reservations.getBook_id().getId());
+            pstmtUpdate.executeUpdate();
+
+            pstmtUpdate.close();
+            pstmt.close();
+            System.out.println("Книгу успішно зарезервовано і її статус оновлено!");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void removeReservations(Reservations reservations) {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM reservations WHERE book_id = ? AND user_id = ?");
+            pstmt.setInt(1, reservations.getBook_id().getId());
+            pstmt.setInt(2, reservations.getUser_id().getId());
+            pstmt.executeUpdate();
+
+            PreparedStatement pstmsUpdate = connection.prepareStatement("UPDATE books SET isAvailable = ? WHERE id = ?");
+            pstmsUpdate.setBoolean(1, reservations.getBook_id().setIsAvailable(true));
+            pstmsUpdate.setInt(2, reservations.getBook_id().getId());
+            pstmsUpdate.executeUpdate();
+            pstmt.close();
+            pstmsUpdate.close();
+            System.out.println("Книгу знято з бронювання");
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static List<Reservations> getReservations() {
+        List<Reservations> list = new ArrayList<>();
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM reservations");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                int bookId = rs.getInt("book_id");
+
+                User user = getUser(userId);
+                Book book = getBook(bookId);
+
+                Reservations result = new Reservations(user, book);
+                list.add(result);
+            }
+            rs.close();
+            pstmt.close();
+
+            return list;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
     public static User getUser(String email) {
         try {
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM user WHERE email  = ?");
@@ -77,6 +141,50 @@ public class SqLite {
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("email")
+                );
+            }
+            rs.close();
+            pstmt.close();
+            return result;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public static User getUser(int id) {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM user WHERE id = ?");
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            User result = null;
+            while (rs.next()) {
+                result = new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email")
+                );
+            }
+            rs.close();
+            pstmt.close();
+            return result;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public static Book getBook(int id) {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM books WHERE id = ?");
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            Book result = null;
+            while (rs.next()) {
+                result = new Book(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getInt("year"),
+                        rs.getBoolean("isAvailable")
                 );
             }
             rs.close();
@@ -183,9 +291,8 @@ public class SqLite {
     }
     public static List<Book> searchBooks(String keyword) {
         List<Book> books = new ArrayList<>();
-        String sql = "SELECT * FROM books WHERE title LIKE ? OR author LIKE ? OR year LIKE ?";
 
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM books WHERE title LIKE ? OR author LIKE ? OR year LIKE ?")) {
 
             pstmt.setString(1, "%" + keyword + "%");
             pstmt.setString(2, "%" + keyword + "%");
@@ -207,4 +314,5 @@ public class SqLite {
         }
         return books;
     }
+
 }

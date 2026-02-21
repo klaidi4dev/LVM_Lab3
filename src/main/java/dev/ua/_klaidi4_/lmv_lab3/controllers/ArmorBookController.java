@@ -6,19 +6,18 @@ import java.util.ResourceBundle;
 import dev.ua._klaidi4_.lmv_lab3.database.SqLite;
 import dev.ua._klaidi4_.lmv_lab3.managers.ControllerManager;
 import dev.ua._klaidi4_.lmv_lab3.modules.Book;
+import dev.ua._klaidi4_.lmv_lab3.modules.Reservations;
 import dev.ua._klaidi4_.lmv_lab3.modules.User;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 public class ArmorBookController {
+    private static Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     @FXML
     private ResourceBundle resources;
@@ -31,6 +30,9 @@ public class ArmorBookController {
 
     @FXML
     private Button armorBookButton;
+
+    @FXML
+    private Button armorBookButtonRemove;
 
     @FXML
     private Button armorBookButtonBack;
@@ -54,26 +56,28 @@ public class ArmorBookController {
     private TextField armorBookText;
 
     @FXML
-    private TableView<?> armorTable;
+    private TableView<Reservations> armorTable;
 
     @FXML
-    private TableColumn<?, ?> armorTableColumBookAuthor;
+    private TableColumn<Reservations, String> armorTableColumBookAuthor;
 
     @FXML
-    private TableColumn<?, ?> armorTableColumBookID;
+    private TableColumn<Reservations, Integer> armorTableColumBookID;
 
     @FXML
-    private TableColumn<?, ?> armorTableColumBookTitle;
+    private TableColumn<Reservations, String> armorTableColumBookTitle;
 
     @FXML
-    private TableColumn<?, ?> armorTableColumBookYear;
+    private TableColumn<Reservations, Integer> armorTableColumBookYear;
 
     @FXML
-    private TableColumn<?, ?> armorTableColumUserEmail;
+    private TableColumn<Reservations, String> armorTableColumUserEmail;
 
     @FXML
-    private TableColumn<?, ?> armorTableColumUserID;
+    private TableColumn<Reservations, Integer> armorTableColumUserID;
 
+    @FXML
+    private TableColumn<Reservations, String> armorTableColumUserName;
     @FXML
     private TableView<User> armorUserTable;
 
@@ -127,5 +131,83 @@ public class ArmorBookController {
         armorBookTable.setItems(booksList);
         booksList.clear();
         booksList.addAll(SqLite.getAllBooks());
+
+        armorTableColumBookID.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<>(cellData.getValue().getBook_id().getId()));
+        armorTableColumBookTitle.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getBook_id().getTitle()));
+        armorTableColumBookAuthor.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getBook_id().getAuthor()));
+        armorTableColumBookYear.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<>(cellData.getValue().getBook_id().getYear()));
+        armorTableColumUserID.setCellValueFactory(cellData ->
+                new SimpleObjectProperty<>(cellData.getValue().getUser_id().getId()));
+        armorTableColumUserEmail.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getUser_id().getEmail()));
+        armorTableColumUserName.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getUser_id().getName()));
+        ObservableList<Reservations> reservationsList = FXCollections.observableArrayList();
+        armorTable.setItems(reservationsList);
+        reservationsList.clear();
+        reservationsList.addAll(SqLite.getReservations());
+
+        armorBookButton.setOnAction(e -> {
+            if (!armorBookText.getText().isEmpty() && !armorUserText.getText().isEmpty()) {
+                   if (SqLite.isBookExists(Integer.parseInt(armorBookText.getText())) && SqLite.isUserExists(Integer.parseInt(armorUserText.getText()))) {
+                       if (SqLite.getBook(Integer.parseInt(armorBookText.getText())).isAvailable()) {
+                           SqLite.addReservations(new Reservations(new User(Integer.parseInt(armorUserText.getText())), new Book(Integer.parseInt(armorBookText.getText()))));
+                           System.out.println("Книга заброньована" + armorUserText.getText() + " " + armorBookText.getText());
+                           reservationsList.clear();
+                           reservationsList.addAll(SqLite.getReservations());
+                           armorBookText.clear();
+                           armorUserText.clear();
+                       } else {
+                           alert.setTitle("Помилка");
+                           alert.setHeaderText(null);
+                           alert.setContentText("Ця книга уже заброньована");
+                           alert.showAndWait();
+                           armorBookText.clear();
+                           armorUserText.clear();
+                       }
+                   } else {
+                       alert.setTitle("Помилка");
+                       alert.setHeaderText(null);
+                       alert.setContentText("Такого id користувача або id книги немає");
+                       alert.showAndWait();
+                       armorBookText.clear();
+                       armorUserText.clear();
+                   }
+            } else {
+                alert.setTitle("Помилка");
+                alert.setHeaderText(null);
+                alert.setContentText("Поля бронювання пусті");
+                alert.showAndWait();
+            }
+        });
+        armorBookButtonRemove.setOnAction(e -> {
+            if (!armorBookText.getText().isEmpty() && !armorUserText.getText().isEmpty()) {
+                if (SqLite.isBookExists(Integer.parseInt(armorBookText.getText())) && SqLite.isUserExists(Integer.parseInt(armorUserText.getText()))) {
+                    SqLite.removeReservations(new Reservations(new User(Integer.parseInt(armorUserText.getText())), new Book(Integer.parseInt(armorBookText.getText()))));
+                    System.out.println("Книга розброньована " + armorUserText.getText() + " " + armorBookText.getText());
+                    reservationsList.clear();
+                    reservationsList.addAll(SqLite.getReservations());
+                    armorBookText.clear();
+                    armorUserText.clear();
+                } else {
+                    alert.setTitle("Помилка");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Такого id користувача або id книги немає");
+                    alert.showAndWait();
+                    armorBookText.clear();
+                    armorUserText.clear();
+                }
+            } else {
+                alert.setTitle("Помилка");
+                alert.setHeaderText(null);
+                alert.setContentText("Поля бронювання пусті");
+                alert.showAndWait();
+            }
+        });
+
     }
 }

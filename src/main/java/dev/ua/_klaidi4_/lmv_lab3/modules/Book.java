@@ -20,6 +20,9 @@ public class Book {
         this.year = year;
         this.isAvailable = isAvailable;
     }
+    public Book(int id) {
+        this.id = id;
+    }
     public int getId() {
         return id;
     }
@@ -39,5 +42,8 @@ public class Book {
     public boolean isAvailable() {
         return isAvailable;
     }
-
+    public boolean setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+        return isAvailable;
+    }
 }

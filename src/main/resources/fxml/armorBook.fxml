@@ -9,9 +9,9 @@
 
 <AnchorPane fx:id="armorAnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.ua._klaidi4_.lmv_lab3.controllers.ArmorBookController">
     <children>
-        <TextField fx:id="armorBookText" layoutX="196.0" layoutY="29.0" prefHeight="42.0" prefWidth="199.0" promptText="ID книги для бронювання" />
-      <TextField fx:id="armorUserText" layoutX="436.0" layoutY="29.0" prefHeight="42.0" prefWidth="199.0" promptText="ID того хто бронює" />
-        <Button fx:id="armorBookButton" layoutX="686.0" layoutY="29.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Забронювати" />
+        <TextField fx:id="armorBookText" layoutX="364.0" layoutY="29.0" prefHeight="42.0" prefWidth="199.0" promptText="ID книги для бронювання" />
+      <TextField fx:id="armorUserText" layoutX="101.0" layoutY="29.0" prefHeight="42.0" prefWidth="199.0" promptText="ID того хто бронює" />
+        <Button fx:id="armorBookButton" layoutX="629.0" layoutY="29.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Забронювати" />
         <TableView fx:id="armorBookTable" layoutX="500.0" layoutY="292.0" prefHeight="200.0" prefWidth="471.0">
             <columns>
                 <TableColumn fx:id="armorBookTableColumID" prefWidth="30.0" text="ID" />
@@ -34,13 +34,15 @@
       </TableView>
       <TableView fx:id="armorTable" layoutX="27.0" layoutY="103.0" prefHeight="170.0" prefWidth="947.0">
         <columns>
-          <TableColumn fx:id="armorTableColumBookID" prefWidth="95.20000839233398" text="ID заброньованої Книги" />
-          <TableColumn fx:id="armorTableColumBookTitle" minWidth="0.0" prefWidth="234.40000915527344" text="Назва книги" />
-            <TableColumn fx:id="armorTableColumBookAuthor" prefWidth="146.39996337890625" text="Автор книги" />
-            <TableColumn fx:id="armorTableColumBookYear" minWidth="0.0" prefWidth="100.79998779296875" text="Рік видання" />
-            <TableColumn fx:id="armorTableColumUserID" minWidth="0.0" prefWidth="133.5999755859375" text="ID хто забронював" />
-            <TableColumn fx:id="armorTableColumUserEmail" minWidth="0.0" prefWidth="242.4000244140625" text="Email хто забронював" />
+          <TableColumn fx:id="armorTableColumBookID" prefWidth="50.0" text="Book ID" />
+          <TableColumn fx:id="armorTableColumBookTitle" minWidth="0.0" prefWidth="156.7999725341797" text="Назва книги" />
+            <TableColumn fx:id="armorTableColumBookAuthor" prefWidth="126.39996337890625" text="Автор книги" />
+            <TableColumn fx:id="armorTableColumBookYear" minWidth="0.0" prefWidth="84.79998779296875" text="Рік видання" />
+            <TableColumn fx:id="armorTableColumUserID" minWidth="0.0" prefWidth="46.0" text="User ID" />
+            <TableColumn fx:id="armorTableColumUserName" prefWidth="144.79998779296875" text="User" />
+            <TableColumn fx:id="armorTableColumUserEmail" minWidth="0.0" prefWidth="344.00006103515625" text="Email хто забронював" />
         </columns>
       </TableView>
+      <Button fx:id="armorBookButtonRemove" layoutX="779.0" layoutY="29.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Зняти бронювання" />
     </children>
 </AnchorPane>

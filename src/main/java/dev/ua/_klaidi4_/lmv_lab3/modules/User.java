@@ -17,6 +17,9 @@ public class User {
     public User(String email) {
         this.email = email;
     }
+    public User(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
