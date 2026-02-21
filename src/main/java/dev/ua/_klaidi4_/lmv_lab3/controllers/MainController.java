@@ -43,10 +43,17 @@ public class MainController {
     private Button writingBook;
 
     @FXML
+    private Button removeUser;
+
+    @FXML
     void initialize() {
+        ControllerManager.requestFocus(anchorPane);
         registerButton(registerBook,"/fxml/singUp.fxml");
         registerButton(addBook, "/fxml/addBook.fxml");
         registerButton(searchBook, "/fxml/searchBook.fxml");
+        registerButton(writingBook, "/fxml/removeBook.fxml");
+        registerButton(armorBook, "/fxml/armorBook.fxml");
+        registerButton(removeUser, "/fxml/removeUser.fxml");
     }
     private void registerButton(Button button, String url) {
         button.setOnAction(e -> {

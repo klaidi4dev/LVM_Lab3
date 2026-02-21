@@ -10,17 +10,20 @@ import java.io.IOException;
 
 public class Main {
     private static Main instance;
+    private final static int WIDTH = 1000;
+    private final static int HEIGHT = 600;
     public static void main(String[] args) {
         instance = new Main();
         SqLite.connect();
-        SqLite.getUser(1);
         Application.launch(StartApp.class, args);}
     public static class StartApp extends Application {
         @Override
         public void start(Stage stage) throws IOException {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+            Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
             stage.setTitle("Книжковий каталог");
+            stage.setFullScreen(false);
+            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
         }

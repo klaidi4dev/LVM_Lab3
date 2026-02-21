@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class AddBookController {
 
@@ -17,6 +18,9 @@ public class AddBookController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private AnchorPane addBookAnchorPane;
 
     @FXML
     private TextField addBookAuthor;
@@ -33,6 +37,7 @@ public class AddBookController {
 
     @FXML
     void initialize() {
+        ControllerManager.requestFocus(addBookAnchorPane);
         addBookYear.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 addBookYear.setText(newValue.replaceAll("[^\\d]", ""));

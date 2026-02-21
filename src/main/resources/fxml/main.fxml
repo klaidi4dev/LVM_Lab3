@@ -19,5 +19,6 @@
       <Button fx:id="armorBook" layoutX="50.0" layoutY="220.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Бронювання книг" />
       <Button fx:id="writingBook" layoutX="550.0" layoutY="220.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Списання старих книг" />
       <Button fx:id="registerBook" layoutX="50.0" layoutY="340.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="900.0" text="Реєстрація користувачів" />
+      <Button fx:id="removeUser" layoutX="50.0" layoutY="468.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="900.0" text="Видалити користувача" />
    </children>
 </AnchorPane>

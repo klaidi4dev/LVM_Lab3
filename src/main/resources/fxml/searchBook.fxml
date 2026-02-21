@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.ua._klaidi4_.lmv_lab3.controllers.SearchBookController">
+<AnchorPane fx:id="searchAnchorPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.ua._klaidi4_.lmv_lab3.controllers.SearchBookController">
    <children>
       <TextField fx:id="searchBookText" layoutX="300.0" layoutY="29.0" prefHeight="42.0" prefWidth="400.0" promptText="Пошук по назві або автору" />
       <Button fx:id="searchBookButton" layoutX="731.0" layoutY="29.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Пошук" />
       <TableView fx:id="searchBookTable" layoutX="20.0" layoutY="98.0" prefHeight="402.0" prefWidth="960.0">
         <columns>
-          <TableColumn fx:id="searchBookTableColumTitle" prefWidth="500.0" text="Назва книг" />
+            <TableColumn fx:id="searchBookTableColumID" prefWidth="30.0" text="ID" />
+          <TableColumn fx:id="searchBookTableColumTitle" prefWidth="470.0" text="Назва книг" />
             <TableColumn fx:id="searchBookTableColumAuthor" prefWidth="300.0" text="Автори книг" />
             <TableColumn fx:id="searchBookTableColumYear" prefWidth="160.0" text="Рік видання" />
         </columns>
