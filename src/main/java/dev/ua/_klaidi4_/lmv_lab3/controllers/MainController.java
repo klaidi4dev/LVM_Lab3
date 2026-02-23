@@ -7,6 +7,7 @@ import dev.ua._klaidi4_.lmv_lab3.managers.ControllerManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -17,7 +18,8 @@ public class MainController {
 
     @FXML
     private URL location;
-
+    @FXML
+    private ImageView ImageBook;
     @FXML
     private AnchorPane anchorPane;
 
@@ -26,9 +28,6 @@ public class MainController {
 
     @FXML
     private Button armorBook;
-
-    @FXML
-    private ImageView imageLableBook;
 
     @FXML
     private Label lableBook;
@@ -47,6 +46,7 @@ public class MainController {
 
     @FXML
     void initialize() {
+        ImageBook.setImage(new Image(getClass().getResourceAsStream("/assets/logo.png")));
         ControllerManager.requestFocus(anchorPane);
         registerButton(registerBook,"/fxml/singUp.fxml");
         registerButton(addBook, "/fxml/addBook.fxml");

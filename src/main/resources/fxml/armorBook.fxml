@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,7 +13,7 @@
         <TextField fx:id="armorBookText" layoutX="364.0" layoutY="29.0" prefHeight="42.0" prefWidth="199.0" promptText="ID книги для бронювання" />
       <TextField fx:id="armorUserText" layoutX="101.0" layoutY="29.0" prefHeight="42.0" prefWidth="199.0" promptText="ID того хто бронює" />
         <Button fx:id="armorBookButton" layoutX="629.0" layoutY="29.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Забронювати" />
-        <TableView fx:id="armorBookTable" layoutX="500.0" layoutY="292.0" prefHeight="200.0" prefWidth="471.0">
+        <TableView fx:id="armorBookTable" layoutX="501.0" layoutY="309.0" prefHeight="200.0" prefWidth="471.0">
             <columns>
                 <TableColumn fx:id="armorBookTableColumID" prefWidth="30.0" text="ID" />
                 <TableColumn fx:id="armorBookTableColumTitle" prefWidth="169.60001754760742" text="Назва книг" />
@@ -25,24 +26,34 @@
                 <Font size="31.0" />
             </font>
         </Button>
-      <TableView fx:id="armorUserTable" layoutX="28.0" layoutY="292.0" prefHeight="200.0" prefWidth="471.0">
+      <TableView fx:id="armorUserTable" layoutX="27.0" layoutY="309.0" prefHeight="200.0" prefWidth="471.0">
         <columns>
           <TableColumn fx:id="armorUserTableColumID" prefWidth="30.0" text="ID" />
             <TableColumn fx:id="armorUserTableColumName" prefWidth="139.20000839233398" text="User" />
             <TableColumn fx:id="armorUserTableColumEmail" minWidth="8.79998779296875" prefWidth="300.0000030517578" text="Email" />
         </columns>
       </TableView>
-      <TableView fx:id="armorTable" layoutX="27.0" layoutY="103.0" prefHeight="170.0" prefWidth="947.0">
+      <TableView fx:id="armorTable" layoutX="26.0" layoutY="87.0" prefHeight="170.0" prefWidth="947.0">
         <columns>
-          <TableColumn fx:id="armorTableColumBookID" prefWidth="50.0" text="Book ID" />
-          <TableColumn fx:id="armorTableColumBookTitle" minWidth="0.0" prefWidth="156.7999725341797" text="Назва книги" />
-            <TableColumn fx:id="armorTableColumBookAuthor" prefWidth="126.39996337890625" text="Автор книги" />
-            <TableColumn fx:id="armorTableColumBookYear" minWidth="0.0" prefWidth="84.79998779296875" text="Рік видання" />
             <TableColumn fx:id="armorTableColumUserID" minWidth="0.0" prefWidth="46.0" text="User ID" />
             <TableColumn fx:id="armorTableColumUserName" prefWidth="144.79998779296875" text="User" />
             <TableColumn fx:id="armorTableColumUserEmail" minWidth="0.0" prefWidth="344.00006103515625" text="Email хто забронював" />
+          <TableColumn fx:id="armorTableColumBookID" prefWidth="50.0" text="Book ID" />
+          <TableColumn fx:id="armorTableColumBookTitle" minWidth="0.0" prefWidth="156.7999725341797" text="Назва книги" />
+            <TableColumn fx:id="armorTableColumBookAuthor" prefWidth="126.39996337890625" text="Автор книги" />
+            <TableColumn fx:id="armorTableColumBookYear" minWidth="0.0" prefWidth="75.2000732421875" text="Рік видання" />
         </columns>
       </TableView>
       <Button fx:id="armorBookButtonRemove" layoutX="779.0" layoutY="29.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="Зняти бронювання" />
+      <Label alignment="CENTER" layoutX="145.0" layoutY="273.0" prefHeight="21.0" prefWidth="148.0" text="Користувачі">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="679.0" layoutY="273.0" prefHeight="18.0" prefWidth="155.0" text="Книги">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

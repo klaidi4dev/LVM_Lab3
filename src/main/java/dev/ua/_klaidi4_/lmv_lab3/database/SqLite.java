@@ -33,10 +33,8 @@ public class SqLite {
             System.out.println("Таблиця books завантажена.");
             System.out.println("Таблиця user завантажена.");
             System.out.println("Таблиця reservations завантажена.");
-        } catch (SQLDataException e) {
-            System.out.println(e.getMessage());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -314,5 +312,4 @@ public class SqLite {
         }
         return books;
     }
-
 }

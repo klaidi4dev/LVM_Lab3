@@ -13,12 +13,12 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <ImageView fx:id="imageLableBook" fitHeight="40.0" fitWidth="40.0" layoutX="300.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="addBook" layoutX="50.0" layoutY="100.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Додати нову книгу" />
       <Button fx:id="searchBook" layoutX="550.0" layoutY="100.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Пошук книг" />
       <Button fx:id="armorBook" layoutX="50.0" layoutY="220.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Бронювання книг" />
       <Button fx:id="writingBook" layoutX="550.0" layoutY="220.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Списання старих книг" />
       <Button fx:id="registerBook" layoutX="50.0" layoutY="340.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="900.0" text="Реєстрація користувачів" />
       <Button fx:id="removeUser" layoutX="50.0" layoutY="468.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="900.0" text="Видалити користувача" />
+      <ImageView fx:id="ImageBook" fitHeight="60.0" fitWidth="60.0" layoutX="647.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
