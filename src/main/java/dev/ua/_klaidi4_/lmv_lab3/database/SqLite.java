@@ -264,6 +264,34 @@ public class SqLite {
         }
         return exists;
     }
+    public static boolean isReservationUserExists(int id) {
+        boolean exists = false;
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("SELECT 1 FROM reservations WHERE user_id = ?");
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            exists = rs.next();
+            rs.close();
+            pstmt.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return exists;
+    }
+    public static boolean isReservationBookExists(int id) {
+        boolean exists = false;
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("SELECT 1 FROM reservations WHERE book_id = ?");
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            exists = rs.next();
+            rs.close();
+            pstmt.close();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return exists;
+    }
     public static List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         try {

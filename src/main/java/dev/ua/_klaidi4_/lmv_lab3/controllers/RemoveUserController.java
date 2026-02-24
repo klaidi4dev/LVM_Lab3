@@ -66,16 +66,24 @@ public class RemoveUserController {
                 removeUserText.setText(newValue.replaceAll("[^\\d]", ""));            }
         });
         removeUserButton.setOnAction(e -> {
-           if(SqLite.isUserExists(Integer.parseInt(removeUserText.getText()))) {
-               SqLite.removeUser(Integer.parseInt(removeUserText.getText()));
-               removeUserText.clear();
-               list.clear();
-               list.addAll(SqLite.getUsers());
+           if (!SqLite.isReservationUserExists(Integer.parseInt(removeUserText.getText()))) {
+               if(SqLite.isUserExists(Integer.parseInt(removeUserText.getText()))) {
+                   SqLite.removeUser(Integer.parseInt(removeUserText.getText()));
+                   removeUserText.clear();
+                   list.clear();
+                   list.addAll(SqLite.getUsers());
+               } else {
+                   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                   alert.setTitle("Помилка");
+                   alert.setHeaderText(null);
+                   alert.setContentText("Такого id користувача немає");
+                   alert.showAndWait();
+               }
            } else {
                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                alert.setTitle("Помилка");
                alert.setHeaderText(null);
-               alert.setContentText("Такого id користувача немає");
+               alert.setContentText("У вас заброньвана книга, знініміть броню щоб видалити користувача.");
                alert.showAndWait();
            }
         });

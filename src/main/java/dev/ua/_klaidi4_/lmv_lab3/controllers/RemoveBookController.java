@@ -75,16 +75,24 @@ public class RemoveBookController {
                 removeBookText.setText(newValue.replaceAll("[^\\d]", ""));
             }
             removeBookButton.setOnAction(e -> {
-                if (SqLite.isBookExists(Integer.parseInt(removeBookText.getText()))) {
-                    SqLite.removeBook(Integer.parseInt(removeBookText.getText()));
-                    removeBookText.clear();
-                    bookList.clear();
-                    bookList.addAll(SqLite.getAllBooks());
+                if (!SqLite.isReservationBookExists(Integer.parseInt(removeBookText.getText()))) {
+                    if (SqLite.isBookExists(Integer.parseInt(removeBookText.getText()))) {
+                        SqLite.removeBook(Integer.parseInt(removeBookText.getText()));
+                        removeBookText.clear();
+                        bookList.clear();
+                        bookList.addAll(SqLite.getAllBooks());
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Помилка");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Такого id книги немає");
+                        alert.showAndWait();
+                    }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Помилка");
                     alert.setHeaderText(null);
-                    alert.setContentText("Такого id книги немає");
+                    alert.setContentText("Ця книга заброньована, знініміть броню щоб видалити книгу.");
                     alert.showAndWait();
                 }
             });
