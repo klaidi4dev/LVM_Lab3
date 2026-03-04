@@ -1,7 +1,6 @@
 package dev.ua._klaidi4_.lmv_lab3.controllers;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import dev.ua._klaidi4_.lmv_lab3.database.SqLite;

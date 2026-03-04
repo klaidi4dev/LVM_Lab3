@@ -1,0 +1,130 @@
+@startuml
+skinparam ActivityBackgroundColor #F2F8FB
+skinparam ActivityBorderColor #2C3E50
+skinparam ArrowColor #2C3E50
+skinparam defaultFontName Arial
+
+start
+:Запуск програми (ExeMain.main);
+:Виклик Main.main();
+:SqLite.connect() \n(Підключення до БД, створення таблиць);
+:Application.launch(StartApp.class);
+:Завантаження main.fxml \n(Головне меню);
+
+repeat
+  :Очікування вибору користувача в MainController;
+
+  switch (Яку кнопку натиснуто?)
+
+  case ( Register Book (Реєстрація) )
+    :Перехід до SingUpController;
+    :Введення Name та Email;
+    if (Поля заповнені?) then (Так)
+      if (Email закінчується на @gmail.com \nабо @outlook.com?) then (Так)
+        if (Користувач з таким Email існує?) then (Ні)
+          :SqLite.addUser();
+          :Повернення до головного меню;
+        else (Так)
+          :Alert: "Такий користувач вже зареєстрований";
+        endif
+      else (Ні)
+        :Alert: "Некоректне закінчення Email";
+      endif
+    else (Ні)
+      :Alert: "Рядки пусті";
+    endif
+
+  case ( Add Book (Додати книгу) )
+    :Перехід до AddBookController;
+    :Введення Title, Author, Year;
+    if (Поля заповнені?) then (Так)
+      :SqLite.addBook();
+      :Повернення до головного меню;
+    else (Ні)
+      :Alert: "Один із рядків пустий";
+    endif
+
+  case ( Search Book (Пошук книги) )
+    :Перехід до SearchBookController;
+    :Введення ключового слова;
+    :Натискання пошуку;
+    if (Поле пошуку пусте?) then (Так)
+      :SqLite.getAllBooks();
+    else (Ні)
+      :SqLite.searchBooks(keyword);
+    endif
+    :Оновлення таблиці результатів;
+
+  case ( Remove Book (Видалити книгу) )
+    :Перехід до RemoveBookController;
+    :Введення ID книги;
+    if (Книга заброньована?) then (Ні)
+      if (Книга існує?) then (Так)
+        :SqLite.removeBook();
+        :Оновлення таблиці;
+      else (Ні)
+        :Alert: "Такого id книги немає";
+      endif
+    else (Так)
+      :Alert: "Ця книга заброньована";
+    endif
+
+  case ( Remove User (Видалити користувача) )
+    :Перехід до RemoveUserController;
+    :Введення ID користувача;
+    if (Користувач має бронювання?) then (Ні)
+      if (Користувач існує?) then (Так)
+        :SqLite.removeUser();
+        :Оновлення таблиці;
+      else (Ні)
+        :Alert: "Такого id користувача немає";
+      endif
+    else (Так)
+      :Alert: "У вас заброньована книга";
+    endif
+
+  case ( Armor Book (Бронювання) )
+    :Перехід до ArmorBookController;
+    :Введення Book ID та User ID;
+    split
+      -[hidden]->
+      :Натискання "Забронювати";
+      if (Поля не пусті?) then (Так)
+        if (Книга та Користувач існують?) then (Так)
+          if (Книга доступна (isAvailable)?) then (Так)
+            :SqLite.addReservations();
+            :Оновлення таблиць;
+          else (Ні)
+            :Alert: "Ця книга уже заброньована";
+          endif
+        else (Ні)
+          :Alert: "Такого id немає";
+        endif
+      else (Ні)
+        :Alert: "Поля пусті";
+      endif
+    split again
+      -[hidden]->
+      :Натискання "Зняти броню";
+      if (Поля не пусті?) then (Так)
+        if (Книга та Користувач існують?) then (Так)
+          :SqLite.removeReservations();
+          :Оновлення таблиць;
+        else (Ні)
+          :Alert: "Такого id немає";
+        endif
+      else (Ні)
+        :Alert: "Поля пусті";
+      endif
+    end split
+
+  case ( Кнопка Back (У будь-якому меню) )
+    :ControllerManager.backToHome();
+    :Повернення до головного меню;
+
+  endswitch
+
+repeat while (Додаток не закрито)
+
+stop
+@enduml
