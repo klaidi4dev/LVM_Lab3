@@ -11,19 +11,17 @@ start
 :Application.launch(StartApp.class);
 :Завантаження main.fxml \n(Головне меню);
 
-repeat
+while (Додаток працює (не закрито)?) is (Так)
   :Очікування вибору користувача в MainController;
 
-  switch (Яку кнопку натиснуто?)
-
-  case ( Register Book (Реєстрація) )
+  fork
+    :Register Book (Реєстрація);
     :Перехід до SingUpController;
     :Введення Name та Email;
     if (Поля заповнені?) then (Так)
       if (Email закінчується на @gmail.com \nабо @outlook.com?) then (Так)
         if (Користувач з таким Email існує?) then (Ні)
           :SqLite.addUser();
-          :Повернення до головного меню;
         else (Так)
           :Alert: "Такий користувач вже зареєстрований";
         endif
@@ -34,17 +32,18 @@ repeat
       :Alert: "Рядки пусті";
     endif
 
-  case ( Add Book (Додати книгу) )
+  fork again
+    :Add Book (Додати книгу);
     :Перехід до AddBookController;
     :Введення Title, Author, Year;
     if (Поля заповнені?) then (Так)
       :SqLite.addBook();
-      :Повернення до головного меню;
     else (Ні)
       :Alert: "Один із рядків пустий";
     endif
 
-  case ( Search Book (Пошук книги) )
+  fork again
+    :Search Book (Пошук книги);
     :Перехід до SearchBookController;
     :Введення ключового слова;
     :Натискання пошуку;
@@ -55,7 +54,8 @@ repeat
     endif
     :Оновлення таблиці результатів;
 
-  case ( Remove Book (Видалити книгу) )
+  fork again
+    :Remove Book (Видалити книгу);
     :Перехід до RemoveBookController;
     :Введення ID книги;
     if (Книга заброньована?) then (Ні)
@@ -69,7 +69,8 @@ repeat
       :Alert: "Ця книга заброньована";
     endif
 
-  case ( Remove User (Видалити користувача) )
+  fork again
+    :Remove User (Видалити користувача);
     :Перехід до RemoveUserController;
     :Введення ID користувача;
     if (Користувач має бронювання?) then (Ні)
@@ -83,11 +84,11 @@ repeat
       :Alert: "У вас заброньована книга";
     endif
 
-  case ( Armor Book (Бронювання) )
+  fork again
+    :Armor Book (Бронювання);
     :Перехід до ArmorBookController;
     :Введення Book ID та User ID;
-    split
-      -[hidden]->
+    fork
       :Натискання "Забронювати";
       if (Поля не пусті?) then (Так)
         if (Книга та Користувач існують?) then (Так)
@@ -103,8 +104,7 @@ repeat
       else (Ні)
         :Alert: "Поля пусті";
       endif
-    split again
-      -[hidden]->
+    fork again
       :Натискання "Зняти броню";
       if (Поля не пусті?) then (Так)
         if (Книга та Користувач існують?) then (Так)
@@ -116,15 +116,18 @@ repeat
       else (Ні)
         :Alert: "Поля пусті";
       endif
-    end split
+    end fork
 
-  case ( Кнопка Back (У будь-якому меню) )
+  fork again
+    :Кнопка Back \n(У будь-якому меню);
     :ControllerManager.backToHome();
-    :Повернення до головного меню;
 
-  endswitch
+  end fork
 
-repeat while (Додаток не закрито)
+  :Повернення до головного меню / Очікування;
 
+endwhile (Ні)
+
+:Завершення роботи \n(закриття вікна);
 stop
 @enduml
